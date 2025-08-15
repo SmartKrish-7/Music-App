@@ -1,4 +1,4 @@
-Music Player
+<h2>Music Player</h2>h2>
 A simple and elegant web-based music player built with HTML, CSS, and vanilla JavaScript, powered by a FastAPI backend. This project allows users to search, play, and manage a collection of songs with a clean, modern interface.
 
 Features
