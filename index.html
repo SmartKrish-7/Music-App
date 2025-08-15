@@ -57,21 +57,34 @@
 </div>
 
 <script>
-    songs = []
+    songs = [];
 
     async function fetchSongs() {
-    const res = await fetch("http://127.0.0.1:8000/songs/");
-    songs = await res.json();
+        try {
+            const res = await fetch("http://127.0.0.1:8000/songs/");
+            if (res.ok) {
+                songs = await res.json();
+                console.log("Songs fetched successfully:", songs);
+            } else {
+                console.error("Failed to fetch songs:", res.status);
+            }
+        } catch (err) {
+            console.error("Error fetching songs:", err);
         }
+    }
+
 
 
     let progress = document.getElementById("progress");
     let song = document.getElementById("song");
     let ctrlIcon = document.getElementById("ctrlIcon");
     const songImg = document.querySelector(".song-img");
-
+    const songTitle = document.querySelector("h1");
+    const songArtist = document.querySelector("p");
     const currentTimeSpan = document.getElementById("current");
     const durationSpan = document.getElementById("duration");
+    const songNameInput = document.getElementById("songNameInput");
+    const suggestionsBox = document.getElementById("suggestionsBox");
 
 
     // Favorite icon toggle
@@ -125,93 +138,71 @@
         song.currentTime = progress.value;
     }
 
-    async function loadAndPlaySong() {
-    const name = document.getElementById("songNameInput").value.trim().toLowerCase();
-    console.log("Searching for:", name);
+    function loadAndPlaySong(songName){
+        const nameToSearch = songName || songNameInput.value.trim();
+        if (!nameToSearch) return;
 
-    try {
-        const res = await fetch("http://127.0.0.1:8000/songs/");
-        if (!res.ok) {
-            alert("Server error!");
-            console.error("Response not OK", res.status);
-            return;
-        }
-
-        const songs = await res.json();
-        console.log("Fetched songs:", songs);
-
-        const match = songs.find(s => s.name.toLowerCase() === name);
+        const match = songs.find(s => s.name.toLowerCase() === nameToSearch.toLowerCase());
         if (!match) {
             alert("❌ Song not found in database!");
             return;
         }
 
-        const songElement = document.getElementById("song");
-        songElement.src = match.path;
+        song.src = match.path;
+        songTitle.innerText = match.name;
+        songArtist.innerText = match.artist;
+        if (match.image) {
+            songImg.src = match.image;
+        }
         console.log("Loading song from:", match.path);
 
-        songElement.load();
-        songElement.play();
+        song.load();
+        song.play();
 
-        document.getElementById("ctrlIcon").classList.remove("fa-play");
-        document.getElementById("ctrlIcon").classList.add("fa-pause");
-    } catch (err) {
-        alert("⚠️ Error fetching song list from backend.");
-        console.error("Error during fetch or play:", err);
-    }
+        ctrlIcon.classList.remove("fa-play");
+        ctrlIcon.classList.add("fa-pause");
+        songImg.classList.add("playing");
     }
 
     //new code
     function showSuggestions(filteredSongs) {
-        const suggestionsBox = document.getElementById("suggestionsBox");
         suggestionsBox.innerHTML = "";
         filteredSongs.forEach(song => {
             const div = document.createElement("div");
-            div.textContent = song;
+            div.textContent = song.name;
             div.onclick = () => {
-                document.getElementById("songNameInput").value = song;
+                songNameInput.value = song.name;
                 suggestionsBox.style.display = "none";
+                loadAndPlaySong(song.name);
             };
             suggestionsBox.appendChild(div);
         });
         suggestionsBox.style.display = filteredSongs.length ? "block" : "none";
     }
 
-    document.getElementById("songNameInput").addEventListener("input", function() {
+    songNameInput.addEventListener("input", function() {
         const query = this.value.toLowerCase();
-        const filtered = songs.filter(song => song.toLowerCase().includes(query));
+        const filtered = songs.filter(song => song.name.toLowerCase().includes(query));
         showSuggestions(filtered);
     });
 
-    document.getElementById("songNameInput").addEventListener("focus", function() {
+    songNameInput.addEventListener("focus", function() {
         showSuggestions(songs);
     });
 
     document.addEventListener("click", function(e) {
         if (!e.target.closest(".song-search")) {
-            document.getElementById("suggestionsBox").style.display = "none";
+            suggestionsBox.style.display = "none";
         }
     });
 
 
-    document.getElementById("searchBtn").addEventListener("click", async () => {
-        const songName = document.getElementById("songNameInput").value.trim();
-        if (!songName) return;
-
-        const res = await fetch(`http://127.0.0.1:8000/songs/${encodeURIComponent(songName)}`);
-        const data = await res.json();
-        console.log(data)
-        if (data.file_url) {
-            const player = document.getElementById("audioPlayer");
-            player.src = data.file_url;
-            player.style.display = "block";
-            player.play();
-            
-        } else {
-            alert("Song not found!");
-        }
+    document.getElementById("searchBtn").addEventListener("click", () => {
+        loadAndPlaySong();
     });
-    //new code
+    
+    
+    //initial call to fetch songs
 fetchSongs();
 
 

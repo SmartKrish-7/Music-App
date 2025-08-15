@@ -7,17 +7,19 @@
 .container{
     width: 100%;
     height: 100vh;
-    background: #333;
+    background: #1a1a1a;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 }
 .music-player{
-    background: #000000;
+    background: #2a2a2a;
     width: 400px;
     padding: 25px 35px;
     text-align: center;
+    border-radius: 20px; /* Added rounded corners */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 nav{
     display: flex;
@@ -29,16 +31,24 @@ nav .circle{
     width: 40px;
     height: 40px;
     line-height: 40px;
-    background: rgb(4, 222, 51);
-    color: rgb(255, 255, 255);
-    box-shadow: 0 0px 15px rgba(255, 255, 255, 0.5);
+    background: #3a3a3a;
+    color: #ffffff;
+    box-shadow: 0 0px 15px rgba(20, 0, 0, 0.2);
+    transition: background 0.2s, transform 0.2s;
 }
+
+nav .circle:hover {
+    background: #4a4a4a;
+    transform: scale(1.1);
+}
+
 .song-img{
     width: 220px;
     margin-top: 30px;
     border-radius: 50%;
     border: 8px solid #fff;
-    box-shadow: 0 5px 15px rgba(17, 255, 25, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s;
 }
 
 .song-img.playing{
@@ -51,35 +61,35 @@ nav .circle{
 
 .music-player h1{
     font-size: 25px;
-    font-weight: 400;
+    font-weight: 500;
     margin-top: 20px;
     color: white;
     font-family: 'Garamond', sans-serif;
 }
 .music-player p{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
-    margin-top: 20px;
-    color: white;
+    margin-top: 5px;
+    color: #b3b3b3;
     font-family: 'Garamond', sans-serif;
 }
 #progress{
     -webkit-appearance: none;
     width: 100%;
     height: 6px;
-    background: rgb(4, 222, 51);
+    background: #4a4a4a;
     border-radius: 4px;
     cursor: pointer;
     margin: 40px 0;
 }
 #progress::-webkit-slider-thumb{
     -webkit-appearance: none;
-    background: rgb(0, 0, 0);
+    background: #ffffff;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 3px 5px rgba(255, 255, 255, 0.5);
+    border: 4px solid #1ed760;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 .controls{
     display: flex;
@@ -89,23 +99,32 @@ nav .circle{
 .controls div{
     width: 60px;
     height: 60px;
-    margin: 20px;
+    margin: 0 15px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     cursor: pointer;
+    background: #3a3a3a;
+    border-radius: 50%;
+    transition: background 0.2s, transform 0.2s;
 }
+
+.controls div:hover {
+    background: #4a4a4a;
+    transform: scale(1.1);
+}
+
 .controls div:nth-child(2){
     transform: scale(1.2);
     border-radius: 50%;
-    background: rgb(44, 255, 44);
+    background: #1ed760;
 }
 .time-info {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: #fff;
+    color: #b3b3b3;
     padding: 0 5px;
 }
 
@@ -113,9 +132,10 @@ nav .circle{
     margin-top: 15px;
     font-size: 22px;
     cursor: pointer;
-    color: white;
+    color: #b3b3b3;
+    transition: color 0.2s;
 }
-.favorite i:hover {
+.favorite i.fa-solid {
     color: red;
 }
 
@@ -127,8 +147,10 @@ nav .circle{
     #songNameInput {
         padding: 10px;
         width: 250px;
-        border: 2px solid #007bff;
+        border: 2px solid #1ed760;
         border-radius: 5px;
+        background: #3a3a3a;
+        color: #ffffff;
         outline: none;
         font-size: 16px;
     }
@@ -137,23 +159,24 @@ nav .circle{
         padding: 10px 15px;
         margin-left: 5px;
         border: none;
-        background: #007bff;
+        background: #1ed760; /* Accent color */
         color: white;
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        transition: background 0.2s;
     }
 
     #searchBtn:hover {
-        background: #0056b3;
+        background: #17a349;
     }
 
     .suggestions {
         position: absolute;
-        top: 40px;
-        width: 250px;
-        background: white;
-        border: 1px solid #ccc;
+        top: 45px;
+        width: 100%; /* Match parent width */
+        background: #2a2a2a;
+        border: 1px solid #4a4a4a;
         border-radius: 5px;
         max-height: 150px;
         overflow-y: auto;
@@ -164,8 +187,10 @@ nav .circle{
     .suggestions div {
         padding: 8px;
         cursor: pointer;
+        color: #ffffff;
+        transition: background 0.2s;
     }
 
     .suggestions div:hover {
-        background: #f0f0f0;
+        background: #3a3a3a;
     }

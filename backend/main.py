@@ -29,6 +29,8 @@ class Song(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False)
     path = Column(String(255), nullable=False)
+    artist = Column(String(255), nullable=False)
+    image = Column(String(255), nullable=True)
 
 Base.metadata.create_all(bind=engine)
 
@@ -36,11 +38,15 @@ Base.metadata.create_all(bind=engine)
 class SongCreate(BaseModel):
     name: str
     path: str
+    artist: str
+    image: str
 
 class SongOut(BaseModel):
     id: int
     name: str
     path: str
+    artist: str
+    image: str
 
     class Config:
         orm_mode = True
@@ -56,7 +62,7 @@ def get_all_songs():
 @app.post("/songs/", response_model=SongOut)
 def add_song(song: SongCreate):
     db = SessionLocal()
-    new_song = Song(name=song.name, path=song.path)
+    new_song = Song(name=song.name, path=song.path, artist=song.artist, image=song.image)
     db.add(new_song)
     db.commit()
     db.refresh(new_song)
