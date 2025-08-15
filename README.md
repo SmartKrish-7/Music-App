@@ -48,58 +48,67 @@ git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 ```
 
-Set up the backend
+**Set up the backend**
 
 Create a virtual environment (optional but recommended):
-
+```bash
 python -m venv venv
-
+```
 
 Activate the environment:
 
-Windows:
-
+-**Windows:**
+```bash
 venv\Scripts\activate
+```
 
-
-Mac/Linux:
-
+-**Mac/Linux:**
+```bash
 source venv/bin/activate
+```
 
-Install dependencies
+**Install dependencies**
+```bash
 pip install -r requirements.txt
+```
+---
 
-
-💡 If you don’t have a requirements.txt file, create one:
-
-pip freeze > requirements.txt
-
-2️⃣ Run the Backend Server
+###**2️⃣ Run the Backend Server**
+```bash
 uvicorn main:app --reload
-
+```
 
 The server will run at:
 📍 http://127.0.0.1:8000
 
-3️⃣ Add Your Music Files
+---
 
-Place your .mp3 files inside the static/songs/ folder.
+###**3️⃣ Add Your Music Files**
 
-Add album art images inside static/images/.
+1. Place your .mp3 files inside the static/songs/ folder.
 
-Insert song info into the database.
+2. Add album art images inside static/images/.
 
-Example SQL:
+3. Insert song info into the database.
 
+**Example SQL:**
+```sql
 INSERT INTO songs (name, artist, path, image) 
 VALUES ("Song Name", "Artist Name", "songs/song_file.mp3", "images/album_art.png");
+```
 
-4️⃣ Open the Music Player
+---
+
+###**4️⃣ Open the Music Player**
 
 Open index.html in your browser.
 The frontend will automatically connect to the backend.
 
-📂 Project Structure
+---
+
+
+###**📂 Project Structure**
+```structure
 ├── main.py                # FastAPI backend
 ├── requirements.txt       # Python dependencies
 ├── index.html             # Music player UI
@@ -108,3 +117,4 @@ The frontend will automatically connect to the backend.
 │   ├── songs/             # MP3 files
 │   └── images/            # Album art
 └── README.md              # Project documentation
+```
