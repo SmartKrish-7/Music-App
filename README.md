@@ -8,9 +8,8 @@ This project allows users to **search, play, and manage** a collection of songs 
 ## ✨ Features
 
 - 🔍 **Search Functionality** – Dynamic search bar with live suggestions for songs.
-- 🎛 **Playback Controls** – Play, pause, forward, and backward buttons.
+- 🎛 **Playback Controls** – Play, pause buttons.
 - 📊 **Progress Bar** – Interactive progress bar for tracking and scrubbing.
-- 📱 **Responsive Design** – Optimized for desktop and mobile devices.
 - ❤️ **Favorites** – Toggle songs as favorites.
 - ⚡ **FastAPI Backend** – Handles song data, file serving, and API endpoints.
 
