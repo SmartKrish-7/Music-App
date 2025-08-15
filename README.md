@@ -46,3 +46,65 @@ Make sure you have:
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
+```
+
+Set up the backend
+
+Create a virtual environment (optional but recommended):
+
+python -m venv venv
+
+
+Activate the environment:
+
+Windows:
+
+venv\Scripts\activate
+
+
+Mac/Linux:
+
+source venv/bin/activate
+
+Install dependencies
+pip install -r requirements.txt
+
+
+💡 If you don’t have a requirements.txt file, create one:
+
+pip freeze > requirements.txt
+
+2️⃣ Run the Backend Server
+uvicorn main:app --reload
+
+
+The server will run at:
+📍 http://127.0.0.1:8000
+
+3️⃣ Add Your Music Files
+
+Place your .mp3 files inside the static/songs/ folder.
+
+Add album art images inside static/images/.
+
+Insert song info into the database.
+
+Example SQL:
+
+INSERT INTO songs (name, artist, path, image) 
+VALUES ("Song Name", "Artist Name", "songs/song_file.mp3", "images/album_art.png");
+
+4️⃣ Open the Music Player
+
+Open index.html in your browser.
+The frontend will automatically connect to the backend.
+
+📂 Project Structure
+├── main.py                # FastAPI backend
+├── requirements.txt       # Python dependencies
+├── index.html             # Music player UI
+├── style.css              # Player styling
+├── static/
+│   ├── songs/             # MP3 files
+│   └── images/            # Album art
+└── README.md              # Project documentation
