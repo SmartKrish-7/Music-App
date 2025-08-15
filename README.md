@@ -44,7 +44,7 @@ Make sure you have:
 #### **Clone the repository**
 ```bash
 git clone https://github.com/SmartKrish-7/Music-App.git
-cd your-repo-name
+cd Music-App
 ```
 
 ## **Set up the backend**
